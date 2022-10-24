@@ -13,6 +13,7 @@ public class Board {
     private Piece[][] pieces;
     private Piece selected;
     private EnumPlayer player;
+    private int nMoves;
     
     // Contructor 
     public Board() {
@@ -102,10 +103,11 @@ public class Board {
             this.pieces[piece.getRow()][piece.getColumn()] = null;
             piece.setRow(toRow);
             piece.setColumn(toColumn);
-            piece.setFirstMove(false);
+            piece.setLastMove(this.nMoves);
             this.setPiece(piece);
             this.selectPiece(piece);
             this.invertPlayer();
+            this.nMoves ++;
         }
     }
     
@@ -139,5 +141,10 @@ public class Board {
     public EnumPlayer getPlayer() {
         return player;
     }
+
+    public int getnMoves() {
+        return nMoves;
+    }
+    
     
 }

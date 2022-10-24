@@ -13,8 +13,8 @@ public abstract class Piece {
 
     //Atributtes
     private EnumPlayer player;
-    private int row, column;
-    private boolean active, selected, firstMove;
+    private int row, column, lastMove;
+    private boolean active, selected, enPassant;
     private String figure;
     private Board board;
     
@@ -28,7 +28,8 @@ public abstract class Piece {
         this.figure = figure;
         this.active = true;
         this.selected = false;
-        this.firstMove = true;
+        this.enPassant = false;
+        this.lastMove = 0;
         
     }
 
@@ -87,14 +88,20 @@ public abstract class Piece {
         this.board = board;
     }
 
-    public boolean isFirstMove() {
-        return firstMove;
+    public boolean isEnPassant() {
+        return enPassant;
     }
 
-    public void setFirstMove(boolean firstMove) {
-        this.firstMove = firstMove;
+    public void setEnPassant(boolean enPassant) {
+        this.enPassant = enPassant;
+    }
+
+    public int getLastMove() {
+        return lastMove;
+    }
+
+    public void setLastMove(int lastMove) {
+        this.lastMove = lastMove;
     }
     
-    
-
 }
