@@ -18,17 +18,16 @@ public class Pawn extends Piece{
     @Override
     public boolean isValidMovement(int toRow, int toColumn) {
         
-        //Move one vacant square
-        if(this.getBoard().getPiece(toRow, toColumn) == null && this.getColumn() == toColumn && (this.getPlayer() == EnumPlayer.WHITE ? toRow == this.getRow()+1 : toRow == this.getRow()-1)) {
+
+        //Move one or 2 vacant square
+        if(this.getBoard().getPiece(toRow, toColumn) == null && this.getColumn() == toColumn && (this.getPlayer() == EnumPlayer.WHITE ? toRow == this.getRow()+1 : toRow == this.getRow()-1) || this.isFirstMove() && (this.getPlayer() == EnumPlayer.WHITE ? toRow == this.getRow()+2 : toRow == this.getRow()-2)) {
             return true;
         }
-        //Move two vacant square
-        else if (this.getBoard().getPiece(toRow, toColumn) == null && this.isFirstMove() && this.getColumn() == toColumn && (this.getPlayer() == EnumPlayer.WHITE ? toRow == this.getRow()+2 : toRow == this.getRow()-2)) {
-            return true;
-        }
+
         // Capturing
-        else if (this.getBoard().getPiece(toRow, toColumn).getPlayer() != this.getPlayer() && (this.getColumn()+1 == toColumn || this.getColumn()-1 == toColumn) && (this.getPlayer() == EnumPlayer.WHITE ? toRow == this.getRow()+1 : toRow == this.getRow()-1)) {
+        else if (this.getBoard().getPiece(toRow, toColumn) != null && this.getBoard().getPiece(toRow, toColumn).getPlayer() != this.getPlayer() && (this.getPlayer() == EnumPlayer.WHITE ? toRow == this.getRow()+1 : toRow == this.getRow()-1) && Math.abs(toColumn - this.getColumn()) == 1) {
             return true;
+
         }      
         //Promotion
         //En passant
@@ -42,5 +41,4 @@ public class Pawn extends Piece{
         ArrayList<Integer[]> moves = new ArrayList<>();
         return moves;
     }
-    
 }

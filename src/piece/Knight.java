@@ -17,7 +17,7 @@ public class Knight extends Piece{
 
     @Override
     public boolean isValidMovement(int toRow, int toColumn) {
-        return true;
+        return (Math.abs(toRow - this.getRow()) == 2 && Math.abs(toColumn - this.getColumn()) == 1 || Math.abs(toRow - this.getRow()) == 1 && Math.abs(toColumn - this.getColumn()) == 2) && (this.getBoard().getPiece(toRow, toColumn) == null || this.getBoard().getPiece(toRow, toColumn).getPlayer() != this.getPlayer());
     }
 
     @Override
