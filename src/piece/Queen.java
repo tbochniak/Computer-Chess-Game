@@ -17,7 +17,7 @@ public class Queen extends Piece{
 
     @Override
     public boolean isValidMovement(int toRow, int toColumn) {
-        return true;
+        return (new Bishop(this.getPlayer(), this.getRow(), this.getColumn(), this.getBoard())).isValidMovement(toRow, toColumn) || (new Rook(this.getPlayer(), this.getRow(), this.getColumn(), this.getBoard())).isValidMovement(toRow, toColumn);
     }
 
     @Override
