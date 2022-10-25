@@ -3,6 +3,8 @@
  */
 package piece;
 
+import screen.JCell;
+
 /**
  *
  * @author tiago
@@ -69,33 +71,33 @@ public class Board {
             piece.setSelected(false);
             this.selected = null;
         }
-        else {
+        
+        else if (this.selected != null) {
+            this.selected.setSelected(false);
             piece.setSelected(true);
             this.selected = piece;
         }
+        
+        else {
+            piece.setSelected(true);
+            this.selected = piece;            
+        }
+        
     }
     
-    public void play(int row, int column) {
-       Piece piece = this.getPiece(row, column);
-        if (this.selected == null) {
-            if (piece != null && piece.getPlayer().equals(this.player)) {
-               this.selectPiece(piece);
-            }  
+    public void play(JCell jCell) {
+        int row = jCell.getRow();
+        int column = jCell.getColumn();
+        Piece piece = this.getPiece(row, column);
+        
+        if (piece != null && piece.getPlayer().equals(this.player)) {
+            this.selectPiece(piece);  
         }
-        else {
-            if (this.selected == piece) {
-               this.selectPiece(piece);
-            }
-           
-            else {
-                if (piece == null) {
-                   this.movePiece(this.selected, row, column);
-                }
-                else if (!piece.getPlayer().equals(this.selected.getPlayer())) {
-                   this.movePiece(this.selected, row, column);
-                }
-            }
+        
+        else if (this.selected != null) {
+            this.movePiece(this.selected, row, column);
         }
+        
     }
    
     public void movePiece(Piece piece, int toRow, int toColumn) {
