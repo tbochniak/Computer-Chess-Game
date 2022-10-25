@@ -90,8 +90,11 @@ public class Board {
         int column = jCell.getColumn();
         Piece piece = this.getPiece(row, column);
         
+        
+        
         if (piece != null && piece.getPlayer().equals(this.player)) {
             this.selectPiece(piece);  
+            System.out.println(piece.possibleMoves());
         }
         
         else if (this.selected != null) {

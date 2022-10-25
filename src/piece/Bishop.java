@@ -65,8 +65,62 @@ public class Bishop extends Piece{
     }
 
     @Override
-    public ArrayList<Integer[]> possibleMoves() {
-        ArrayList<Integer[]> moves = new ArrayList<>();
+    public ArrayList<ArrayList<Integer>> possibleMoves() {
+        ArrayList<ArrayList<Integer>> moves = new ArrayList<>();
+        int column;
+        //diagonal ++
+        for (int row = this.getRow() + 1; row < 8; row ++) {
+            column = this.getColumn() + (row - this.getRow());
+            if(!(column < 8 && this.isValidMovement(row, column))) {
+                break;
+            }
+            ArrayList<Integer> aux = new ArrayList();
+            aux.add(row);
+            aux.add(column);
+            moves.add(aux);
+            
+        }
+        
+        //diagonal +-
+        for (int row = this.getRow() + 1; row < 8; row ++) {
+            column = this.getColumn() - (row - this.getRow());
+            if(!(column >= 0 && this.isValidMovement(row, column))) {
+                break;
+            }
+            ArrayList<Integer> aux = new ArrayList();
+            aux.add(row);
+            aux.add(column);
+            moves.add(aux);
+            
+        }
+        
+        //diagonal -+
+        for (int row = this.getRow() - 1; row >= 0; row --) {
+            column = this.getColumn() - (row - this.getRow());
+            if(!(column < 8 && this.isValidMovement(row, this.getColumn() - row + this.getRow()))) {
+                break;
+            }
+            ArrayList<Integer> aux = new ArrayList();
+            aux.add(row);
+            aux.add(column);
+            moves.add(aux);
+            
+        }
+        
+        //diagonal --
+        for (int row = this.getRow() - 1; row >= 0; row --) {
+            column = this.getColumn() + (row - this.getRow());
+            if(!(column >= 0 && this.isValidMovement(row, this.getColumn() + row - this.getRow()))) {
+                break;
+            }
+            ArrayList<Integer> aux = new ArrayList();
+            aux.add(row);
+            aux.add(column);
+            moves.add(aux);
+            
+        }
+
+        
         return moves;
     }
 }

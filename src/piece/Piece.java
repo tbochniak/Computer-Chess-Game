@@ -36,7 +36,7 @@ public abstract class Piece {
     //Public methods
     public abstract boolean isValidMovement(int toRow, int toColumn);
     
-    public abstract ArrayList<Integer[]> possibleMoves(); 
+    public abstract ArrayList<ArrayList<Integer>> possibleMoves(); 
     
     //getters e setters 
 

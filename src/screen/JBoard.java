@@ -31,8 +31,8 @@ public class JBoard extends JPanel implements MouseListener{
         
         JCell jCell;
         
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
+        for (int i = 7; i >= 0; i--) {
+            for (int j = 7; j >= 0; j--) {
                 
                 Piece piece = this.board.getPiece(i, j);
                 if (piece == null) {

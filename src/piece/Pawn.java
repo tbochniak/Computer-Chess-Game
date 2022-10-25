@@ -45,8 +45,8 @@ public class Pawn extends Piece{
     }
     
     @Override
-    public ArrayList<Integer[]> possibleMoves() {
-        ArrayList<Integer[]> moves = new ArrayList<>();
+    public ArrayList<ArrayList<Integer>> possibleMoves() {
+        ArrayList<ArrayList<Integer>> moves = new ArrayList<>();
         return moves;
     }
 }

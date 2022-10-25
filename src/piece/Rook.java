@@ -4,6 +4,7 @@
 package piece;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -65,8 +66,53 @@ public class Rook extends Piece{
     }
 
     @Override
-    public ArrayList<Integer[]> possibleMoves() {
-        ArrayList<Integer[]> moves = new ArrayList<>();
+    public ArrayList<ArrayList<Integer>> possibleMoves() {
+        ArrayList<ArrayList<Integer>> moves = new ArrayList<>();
+        
+        //forward
+        for (int row = this.getRow() + 1; row < 8; row ++) {
+            if(!this.isValidMovement(row, this.getColumn())) {
+                break;
+            }
+            ArrayList<Integer> aux = new ArrayList();
+            aux.add(row);
+            aux.add(this.getColumn());
+            moves.add(aux);
+        }
+        
+        //backward 
+        for (int row = this.getRow() - 1; row >= 0; row --) {
+            if(!this.isValidMovement(row, this.getColumn())) {
+                break;
+            }
+            ArrayList<Integer> aux = new ArrayList();
+            aux.add(row);
+            aux.add(this.getColumn());
+            moves.add(aux);
+        }
+        
+        //left side 
+        for (int column = this.getColumn() + 1; column < 8; column ++) {
+            if(!this.isValidMovement(this.getRow(), column)) {
+                break;
+            }
+            ArrayList<Integer> aux = new ArrayList();
+            aux.add(this.getRow());
+            aux.add(column);
+            moves.add(aux);
+        }
+        
+        //right side
+        for (int column = this.getColumn() - 1; column >= 0; column --) {
+            if(!this.isValidMovement(this.getRow(), column)) {
+                break;
+            }
+            ArrayList<Integer> aux = new ArrayList();
+            aux.add(this.getRow());
+            aux.add(column);
+            moves.add(aux);
+        }
+        
         return moves;
     }
     
