@@ -102,6 +102,10 @@ public class Board {
    
     public void movePiece(Piece piece, int toRow, int toColumn) {
         if (piece.isValidMovement(toRow, toColumn)) {
+            if(this.isCapture(piece, toRow, toColumn)) {
+                this.capturePiece(piece, toRow, toColumn);
+            }
+            
             this.pieces[piece.getRow()][piece.getColumn()] = null;
             piece.setRow(toRow);
             piece.setColumn(toColumn);
@@ -110,6 +114,36 @@ public class Board {
             this.selectPiece(piece);
             this.invertPlayer();
             this.nMoves ++;
+        }
+    }
+    
+    public boolean isCapture(Piece piece, int toRow, int toColumn) {
+        
+        if (piece.getBoard().getPiece(toRow, toColumn) != null) {
+            return true;
+        }
+        
+        // en passant 
+        else if (piece.getBoard().getPiece(toRow, toColumn) == null && (piece.getPlayer() == EnumPlayer.WHITE ? piece.getBoard().getPiece(toRow-1, toColumn) : piece.getBoard().getPiece(toRow+1, toColumn)) != null && (piece.getPlayer() == EnumPlayer.WHITE ? piece.getBoard().getPiece(toRow-1, toColumn) : piece.getBoard().getPiece(toRow+1, toColumn)).isEnPassant() && (piece.getPlayer() == EnumPlayer.WHITE ? piece.getRow() == 4 : piece.getRow() == 3) && (piece.getBoard().getnMoves() - (piece.getPlayer() == EnumPlayer.WHITE ? piece.getBoard().getPiece(toRow-1, toColumn) : piece.getBoard().getPiece(toRow+1, toColumn)).getLastMove()) == 1) {
+            return true;
+        }
+        
+        else {
+            return false;
+        }
+    }
+    
+    public void capturePiece(Piece piece, int toRow, int toColumn) {
+        
+        if (piece.getBoard().getPiece(toRow, toColumn) != null) {
+            piece.getBoard().getPiece(toRow, toColumn).setActive(false);
+            
+        }
+        
+        // en passant 
+        else if (piece.getBoard().getPiece(toRow, toColumn) == null && (piece.getPlayer() == EnumPlayer.WHITE ? piece.getBoard().getPiece(toRow-1, toColumn) : piece.getBoard().getPiece(toRow+1, toColumn)) != null && (piece.getPlayer() == EnumPlayer.WHITE ? piece.getBoard().getPiece(toRow-1, toColumn) : piece.getBoard().getPiece(toRow+1, toColumn)).isEnPassant() && (piece.getPlayer() == EnumPlayer.WHITE ? piece.getRow() == 4 : piece.getRow() == 3) && (piece.getBoard().getnMoves() - (piece.getPlayer() == EnumPlayer.WHITE ? piece.getBoard().getPiece(toRow-1, toColumn) : piece.getBoard().getPiece(toRow+1, toColumn)).getLastMove()) == 1) {
+            this.getPiece(piece.getPlayer() == EnumPlayer.WHITE ? toRow - 1 : toRow + 1, toColumn).setActive(false);
+            this.pieces[piece.getPlayer() == EnumPlayer.WHITE ? toRow - 1 : toRow + 1][toColumn] = null;
         }
     }
     

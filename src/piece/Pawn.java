@@ -43,7 +43,7 @@ public class Pawn extends Piece{
             return false;
         }
     }
-
+    
     @Override
     public ArrayList<Integer[]> possibleMoves() {
         ArrayList<Integer[]> moves = new ArrayList<>();
