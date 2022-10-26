@@ -17,6 +17,10 @@ public class King extends Piece{
 
     @Override
     public boolean isValidMovement(int toRow, int toColumn) {
+        //position out of the board
+        if(!(toRow >= 0 && toRow < 8 && toColumn >= 0 && toColumn < 8)) {
+            return false;
+        }
         return (Math.abs(toRow-this.getRow()) <= 1 && Math.abs(toColumn - this.getColumn()) <= 1)&& (this.getBoard().getPiece(toRow, toColumn) == null || this.getBoard().getPiece(toRow, toColumn).getPlayer() != this.getPlayer());
     }
 

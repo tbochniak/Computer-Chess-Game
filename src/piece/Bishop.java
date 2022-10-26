@@ -22,7 +22,13 @@ public class Bishop extends Piece{
 
     @Override
     public boolean isValidMovement(int toRow, int toColumn) {
-        if (Math.abs(toColumn - this.getColumn()) == Math.abs(toRow - this.getRow()) && (this.getBoard().getPiece(toRow, toColumn) == null || this.getBoard().getPiece(toRow, toColumn).getPlayer() != this.getPlayer())) {
+        
+        //position out of the board
+        if(!(toRow >= 0 && toRow < 8 && toColumn >= 0 && toColumn < 8)) {
+            return false;
+        }
+        
+        else if (Math.abs(toColumn - this.getColumn()) == Math.abs(toRow - this.getRow()) && (this.getBoard().getPiece(toRow, toColumn) == null || this.getBoard().getPiece(toRow, toColumn).getPlayer() != this.getPlayer())) {
             if (toRow > this.getRow() && toColumn > this.getColumn()) {
                 for (int i = 1; i < toRow - this.getRow(); i++) {
                     if (!(this.getBoard().getPiece(this.getRow()+i, this.getColumn()+i) == null)) {
@@ -71,7 +77,7 @@ public class Bishop extends Piece{
         //diagonal ++
         for (int row = this.getRow() + 1; row < 8; row ++) {
             column = this.getColumn() + (row - this.getRow());
-            if(!(column < 8 && this.isValidMovement(row, column))) {
+            if(!this.isValidMovement(row, column)) {
                 break;
             }
             ArrayList<Integer> aux = new ArrayList();
@@ -84,7 +90,7 @@ public class Bishop extends Piece{
         //diagonal +-
         for (int row = this.getRow() + 1; row < 8; row ++) {
             column = this.getColumn() - (row - this.getRow());
-            if(!(column >= 0 && this.isValidMovement(row, column))) {
+            if(!this.isValidMovement(row, column)) {
                 break;
             }
             ArrayList<Integer> aux = new ArrayList();
@@ -97,7 +103,7 @@ public class Bishop extends Piece{
         //diagonal -+
         for (int row = this.getRow() - 1; row >= 0; row --) {
             column = this.getColumn() - (row - this.getRow());
-            if(!(column < 8 && this.isValidMovement(row, this.getColumn() - row + this.getRow()))) {
+            if(!this.isValidMovement(row, this.getColumn() - row + this.getRow())) {
                 break;
             }
             ArrayList<Integer> aux = new ArrayList();
@@ -110,7 +116,7 @@ public class Bishop extends Piece{
         //diagonal --
         for (int row = this.getRow() - 1; row >= 0; row --) {
             column = this.getColumn() + (row - this.getRow());
-            if(!(column >= 0 && this.isValidMovement(row, this.getColumn() + row - this.getRow()))) {
+            if(!this.isValidMovement(row, this.getColumn() + row - this.getRow())) {
                 break;
             }
             ArrayList<Integer> aux = new ArrayList();

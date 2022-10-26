@@ -23,7 +23,13 @@ public class Rook extends Piece{
 
     @Override
     public boolean isValidMovement(int toRow, int toColumn) {
-        if ((toColumn == this.getColumn() || toRow == this.getRow()) && (this.getBoard().getPiece(toRow, toColumn) == null || this.getBoard().getPiece(toRow, toColumn).getPlayer() != this.getPlayer())) {
+        
+        //position out of the board
+        if(!(toRow >= 0 && toRow < 8 && toColumn >= 0 && toColumn < 8)) {
+            return false;
+        }
+        
+        else if ((toColumn == this.getColumn() || toRow == this.getRow()) && (this.getBoard().getPiece(toRow, toColumn) == null || this.getBoard().getPiece(toRow, toColumn).getPlayer() != this.getPlayer())) {
             if (toRow > this.getRow()) {
                 for (int i = 1; i < toRow - this.getRow(); i++) {
                     if (!(this.getBoard().getPiece(this.getRow()+i, this.getColumn()) == null)) {
