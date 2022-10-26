@@ -4,16 +4,20 @@
 package screen;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import piece.Board;
+import piece.Computer;
 import piece.EnumPlayer;
 
 /**
@@ -31,7 +35,7 @@ public class JChess extends JFrame{
     
     //public JProgressBar pbTempo;
     
-    public JChess () {
+    public JChess (EnumPlayer computerPlayer) {
         setTitle("Jogo de Xadrez");
         this.setLayout(new BorderLayout());
        // this.pbTempo = new JProgressBar();
@@ -39,7 +43,7 @@ public class JChess extends JFrame{
       //  pbTempo.setMaximum(10000);
         //pbTempo.setValue(0);
         //final ControlaTempo controlaTempo = new ControlaTempo(pbTempo);
-        this.board = new Board();
+        this.board = new Board(computerPlayer);
         JBoard jBoard = new JBoard(board);
         //controlaTempo.setBoard(jBoard);
         this.add(jBoard, BorderLayout.CENTER);
@@ -74,7 +78,11 @@ public class JChess extends JFrame{
     }
     
     public static void main(String args[]) {
-        new JChess();
+        
+        Object[] opcoes = {"Brancas", "Pretas"};
+        int option = JOptionPane.showOptionDialog( null , "Escolha a cor das peças" , "Jogo de Xadrez" , JOptionPane.YES_NO_CANCEL_OPTION , JOptionPane.QUESTION_MESSAGE ,null , opcoes , null);
+        Computer computer = new Computer(option == 1 ? EnumPlayer.WHITE : EnumPlayer.BLACK);
+        new JChess(computer.getPlayer());
     }
 
 }

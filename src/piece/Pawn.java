@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Pawn extends Piece{
 
     public Pawn(EnumPlayer player, int row, int column) {
-        super(player, row, column, (player == EnumPlayer.WHITE ? "src/figs/wPawn.png" : "src/figs/bPawn.png"));
+        super(player, row, column, (player == EnumPlayer.WHITE ? "src/figs/wPawn.png" : "src/figs/bPawn.png"), 1);
     }
 
     @Override

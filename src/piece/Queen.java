@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class Queen extends Piece{
     
     public Queen(EnumPlayer player, int row, int column) {
-        super(player, row, column, (player == EnumPlayer.WHITE ? "src/figs/wQueen.png" : "src/figs/bQueen.png"));
+        super(player, row, column, (player == EnumPlayer.WHITE ? "src/figs/wQueen.png" : "src/figs/bQueen.png"), 10);
     }
 
     @Override

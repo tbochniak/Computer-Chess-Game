@@ -12,15 +12,16 @@ import java.util.ArrayList;
 public abstract class Piece {
 
     //Atributtes
-    private EnumPlayer player;
+    private final EnumPlayer player;
     private int row, column, lastMove;
+    private final int valuePiece;
     private boolean active, selected, enPassant;
-    private String figure;
+    private final String figure;
     private Board board;
     
     
     //Constructor 
-    public Piece(EnumPlayer player, int row, int column, String figure) {
+    public Piece(EnumPlayer player, int row, int column, String figure, int valuePiece) {
         
         this.player = player;
         this.row = row;
@@ -30,6 +31,7 @@ public abstract class Piece {
         this.selected = false;
         this.enPassant = false;
         this.lastMove = 0;
+        this.valuePiece = valuePiece;
         
     }
 
@@ -38,8 +40,8 @@ public abstract class Piece {
     
     public abstract ArrayList<ArrayList<Integer>> possibleMoves(); 
     
+    
     //getters e setters 
-
     public EnumPlayer getPlayer() {
         return player;
     }
@@ -102,6 +104,10 @@ public abstract class Piece {
 
     public void setLastMove(int lastMove) {
         this.lastMove = lastMove;
+    }
+
+    public int getValuePiece() {
+        return valuePiece;
     }
     
 }

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Knight extends Piece{
 
     public Knight(EnumPlayer player, int row, int column) {
-        super(player, row, column, (player == EnumPlayer.WHITE ? "src/figs/wKnight.png" : "src/figs/bKnight.png"));
+        super(player, row, column, (player == EnumPlayer.WHITE ? "src/figs/wKnight.png" : "src/figs/bKnight.png"), 3);
     }
 
     @Override

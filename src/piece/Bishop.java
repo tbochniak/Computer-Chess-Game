@@ -12,11 +12,11 @@ import java.util.ArrayList;
 public class Bishop extends Piece{
 
     public Bishop(EnumPlayer player, int row, int column) {
-        super(player, row, column, (player == EnumPlayer.WHITE ? "src/figs/wBishop.png" : "src/figs/bBishop.png"));
+        super(player, row, column, (player == EnumPlayer.WHITE ? "src/figs/wBishop.png" : "src/figs/bBishop.png"), 3);
     }
     
     public Bishop(EnumPlayer player, int row, int column, Board board) {
-        super(player, row, column, (player == EnumPlayer.WHITE ? "src/figs/wBishop.png" : "src/figs/bBishop.png"));
+        super(player, row, column, (player == EnumPlayer.WHITE ? "src/figs/wBishop.png" : "src/figs/bBishop.png"), 3);
         this.setBoard(board);
     }    
 

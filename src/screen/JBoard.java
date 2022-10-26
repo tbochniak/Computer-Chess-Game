@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JPanel;
 import piece.Board;
+import piece.EnumPlayer;
 import piece.Piece;
 
 /**
@@ -31,28 +32,55 @@ public class JBoard extends JPanel implements MouseListener{
         
         JCell jCell;
         
-        for (int i = 7; i >= 0; i--) {
-            for (int j = 7; j >= 0; j--) {
+        if (board.getComputerPlayer() == EnumPlayer.BLACK) {
+            for ( int i = 7; i >= 0; i--) {
+                for (int j = 7; j >= 0; j--) {
                 
-                Piece piece = this.board.getPiece(i, j);
-                if (piece == null) {
-                    jCell = new JCell(i, j);
+                    Piece piece = this.board.getPiece(i, j);
+                    if (piece == null) {
+                        jCell = new JCell(i, j);
+                    }
+                    else {
+                        jCell = new JCell(new JPiece(piece));
+                    }
+                    if ((i+j)%2 == 0) {
+                        jCell.setBackground(new Color(210,180,140));
+                    }
+                    else {
+                        jCell.setBackground(new Color(253,245,230));
+                    }
+                    this.add(jCell);
+                    //Criar outra classe depois
+                    jCell.addMouseListener(this);
                 }
-                else {
-                    jCell = new JCell(new JPiece(piece));
-                }
-                if ((i+j)%2 == 0) {
-                    jCell.setBackground(new Color(210,180,140));
-                }
-                else {
-                    jCell.setBackground(new Color(253,245,230));
-                }
-                this.add(jCell);
-                //Criar outra classe depois
-                jCell.addMouseListener(this);
             }
+            this.revalidate();
         }
-        this.revalidate();
+        
+        else {
+            for ( int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+                
+                    Piece piece = this.board.getPiece(i, j);
+                    if (piece == null) {
+                        jCell = new JCell(i, j);
+                    }
+                    else {
+                        jCell = new JCell(new JPiece(piece));
+                    }
+                    if ((i+j)%2 == 0) {
+                        jCell.setBackground(new Color(210,180,140));
+                    }
+                    else {
+                        jCell.setBackground(new Color(253,245,230));
+                    }
+                    this.add(jCell);
+                    //Criar outra classe depois
+                    jCell.addMouseListener(this);
+                }
+            }
+            this.revalidate();
+        }
     }
     
 

@@ -13,11 +13,11 @@ import java.util.List;
 public class Rook extends Piece{
 
     public Rook(EnumPlayer player, int row, int column) {
-        super(player, row, column, (player == EnumPlayer.WHITE ? "src/figs/wRook.png" : "src/figs/bRook.png"));
+        super(player, row, column, (player == EnumPlayer.WHITE ? "src/figs/wRook.png" : "src/figs/bRook.png"), 5);
     }
 
     public Rook(EnumPlayer player, int row, int column, Board board) {
-        super(player, row, column, (player == EnumPlayer.WHITE ? "src/figs/wRook.png" : "src/figs/bRook.png"));
+        super(player, row, column, (player == EnumPlayer.WHITE ? "src/figs/wRook.png" : "src/figs/bRook.png"), 5);
         this.setBoard(board);
     }
 

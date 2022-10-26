@@ -15,14 +15,16 @@ public class Board {
     private Piece[][] pieces;
     private Piece selected;
     private EnumPlayer player;
+    private final EnumPlayer computerPlayer;
     private int nMoves;
     
     // Contructor 
-    public Board() {
+    public Board(EnumPlayer computerPlayer) {
         
         this.pieces = new Piece[8][8];
         this.selected = null;
         this.player = EnumPlayer.WHITE;
+        this.computerPlayer = computerPlayer;
         
         Piece[] listOfPieces = new Piece[32];
         listOfPieces[0] = new Rook(EnumPlayer.WHITE, 0, 0);
@@ -184,6 +186,13 @@ public class Board {
     public int getnMoves() {
         return nMoves;
     }
-    
+
+    public Piece[][] getPieces() {
+        return pieces;
+    }
+
+    public EnumPlayer getComputerPlayer() {
+        return computerPlayer;
+    }
     
 }
