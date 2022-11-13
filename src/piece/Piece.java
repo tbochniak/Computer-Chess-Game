@@ -15,7 +15,7 @@ public abstract class Piece {
     private final EnumPlayer player;
     private int row, column, lastMove;
     private final int valuePiece;
-    private boolean active, selected, enPassant;
+    private boolean active, selected, enPassant, firstMove;
     private final String figure;
     private Board board;
     
@@ -32,14 +32,27 @@ public abstract class Piece {
         this.enPassant = false;
         this.lastMove = 0;
         this.valuePiece = valuePiece;
-        
+        this.firstMove = true;
+    }
+    
+    public Piece(Piece piece) {
+        this.player = piece.getPlayer();
+        this.row = piece.getRow();
+        this.column = piece.column;
+        this.figure = piece.getFigure();
+        this.active = true;
+        this.selected = false;
+        this.enPassant = false;
+        this.lastMove = 0;
+        this.valuePiece = piece.getValuePiece();
+        this.firstMove = true;
     }
 
     //Public methods
     public abstract boolean isValidMovement(int toRow, int toColumn);
     
     public abstract ArrayList<ArrayList<Integer>> possibleMoves(); 
-    
+    public abstract ArrayList<ArrayList<Integer>> possibleAttacks();
     
     //getters e setters 
     public EnumPlayer getPlayer() {
@@ -108,6 +121,18 @@ public abstract class Piece {
 
     public int getValuePiece() {
         return valuePiece;
+    }
+
+    public boolean isFirstMove() {
+        return firstMove;
+    }
+
+    public void setFirstMove(boolean isFirstMove) {
+        this.firstMove = isFirstMove;
+    }
+    
+    public void setPieces(Piece [][] pieces) {
+        this.board.setPieces(pieces);
     }
     
 }

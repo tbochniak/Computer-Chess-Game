@@ -88,6 +88,10 @@ public class JBoard extends JPanel implements MouseListener{
     public Board getBoard() {
         return this.board;
     }
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
     
     // MouseListener
     @Override

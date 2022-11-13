@@ -39,4 +39,9 @@ public class Queen extends Piece{
        return movesB;
     }
 
+    @Override
+    public ArrayList<ArrayList<Integer>> possibleAttacks() {
+        return this.possibleMoves();
+    }    
+    
 }

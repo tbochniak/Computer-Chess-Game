@@ -48,6 +48,11 @@ public class Knight extends Piece{
         
         return moves;
     }
+
+    @Override
+    public ArrayList<ArrayList<Integer>> possibleAttacks() {
+        return this.possibleMoves();
+    }
     
 }
 

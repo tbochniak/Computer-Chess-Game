@@ -83,7 +83,29 @@ public class Pawn extends Piece{
             aux.add(this.getColumn() -1);
             moves.add(aux);
         }
-
+        
+        return moves;
+    }
+    
+    @Override
+    public ArrayList<ArrayList<Integer>> possibleAttacks() {
+        ArrayList<ArrayList<Integer>> moves = new ArrayList<>();
+        
+        //capture 
+        if(this.isValidMovement((this.getPlayer() == EnumPlayer.WHITE ? this.getRow() + 1: this.getRow() - 1), this.getColumn() + 1)) {
+            ArrayList<Integer> aux = new ArrayList();
+            aux.add((this.getPlayer() == EnumPlayer.WHITE ? this.getRow() + 1: this.getRow() - 1));
+            aux.add(this.getColumn() +1);
+            moves.add(aux);
+        }
+        
+        //capture
+        if(this.isValidMovement((this.getPlayer() == EnumPlayer.WHITE ? this.getRow() + 1: this.getRow() - 1), this.getColumn() - 1)) {
+            ArrayList<Integer> aux = new ArrayList();
+            aux.add((this.getPlayer() == EnumPlayer.WHITE ? this.getRow() + 1: this.getRow() - 1));
+            aux.add(this.getColumn() -1);
+            moves.add(aux);
+        }
         
         return moves;
     }

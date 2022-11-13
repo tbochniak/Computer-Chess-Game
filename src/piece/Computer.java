@@ -3,6 +3,8 @@
  */
 package piece;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author tiago
@@ -19,6 +21,12 @@ public class Computer {
         return computerPlayer;
     }
     
-    
-    
+
+    public ArrayList<ArrayList<Integer>> possibleAttacks(Board board) {
+        ArrayList<ArrayList<Integer>> moves = new ArrayList<>();
+        
+        
+        return moves;
+    }
+ 
 }

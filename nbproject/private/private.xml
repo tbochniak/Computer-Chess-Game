@@ -4,6 +4,7 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/tiago/OneDrive/Desktop/ChessGame/ChessGame/src/piece/Board.java</file>
+            <file>file:/C:/Users/tiago/OneDrive/Desktop/ChessGame/ChessGame/src/screen/JPiece.java</file>
             <file>file:/C:/Users/tiago/OneDrive/Desktop/ChessGame/ChessGame/src/screen/JCell.java</file>
             <file>file:/C:/Users/tiago/OneDrive/Desktop/ChessGame/ChessGame/src/piece/Queen.java</file>
             <file>file:/C:/Users/tiago/OneDrive/Desktop/ChessGame/ChessGame/src/piece/Pawn.java</file>
@@ -13,7 +14,6 @@
             <file>file:/C:/Users/tiago/OneDrive/Desktop/ChessGame/ChessGame/src/piece/Knight.java</file>
             <file>file:/C:/Users/tiago/OneDrive/Desktop/ChessGame/ChessGame/src/screen/JChess.java</file>
             <file>file:/C:/Users/tiago/OneDrive/Desktop/ChessGame/ChessGame/src/piece/King.java</file>
-            <file>file:/C:/Users/tiago/OneDrive/Desktop/ChessGame/ChessGame/src/piece/Rook.java</file>
             <file>file:/C:/Users/tiago/OneDrive/Desktop/ChessGame/ChessGame/src/piece/Computer.java</file>
         </group>
     </open-files>

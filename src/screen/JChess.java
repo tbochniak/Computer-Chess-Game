@@ -77,6 +77,18 @@ public class JChess extends JFrame{
         this.setVisible(true);
     }
     
+        public JChess (Board board) {
+        setTitle("Jogo de Xadrez");
+        this.setLayout(new BorderLayout());
+        this.board = board;
+        JBoard jBoard = new JBoard(board);
+        this.add(jBoard, BorderLayout.CENTER);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        this.pack();
+        this.setVisible(true);
+    }
+    
     public static void main(String args[]) {
         
         Object[] opcoes = {"Brancas", "Pretas"};
