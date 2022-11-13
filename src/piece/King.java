@@ -28,7 +28,7 @@ public class King extends Piece{
             //castle to left side
             if(toColumn > this.getColumn() && this.getBoard().getPiece(this.getRow(), 7) instanceof Rook && this.getBoard().getPiece(this.getRow(), 7).isFirstMove()) {
                 for (int column = this.getColumn() + 1; column < 7; column++) {
-                    if(this.getBoard().getPiece(this.getRow(), column) != null) {
+                    if(this.getBoard().getPiece(this.getRow(), column) != null || !this.getBoard().isValidMovementBoard(this, this.getRow(), column)) {
                         return false;
                     }
                 }
@@ -38,7 +38,7 @@ public class King extends Piece{
             //castle to right side
             else if(toColumn < this.getColumn() && this.getBoard().getPiece(this.getRow(), 0).isFirstMove() && this.getBoard().getPiece(this.getRow(), 0) instanceof Rook) {
                 for (int column = this.getColumn() - 1; column > 0; column--) {
-                    if(this.getBoard().getPiece(this.getRow(), column) != null) {
+                    if(this.getBoard().getPiece(this.getRow(), column) != null || !this.getBoard().isValidMovementBoard(this, this.getRow(), column)) {
                         return false;
                     }
                 }

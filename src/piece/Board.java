@@ -144,15 +144,16 @@ public class Board {
         for (int i = 0; i < 8; i++) {
             piecesClone[i] = this.pieces[i].clone();
         }
+        
+        Piece[][] piecesOriginal = new Piece[8][8];
+        for (int i = 0; i < 8; i++) {
+            piecesOriginal[i] = this.pieces[i].clone();
+        }
             
         if(this.isCapture(piece, toRow, toColumn)) {
             this.capturePiece(piece, toRow, toColumn);
         }
-            
-        else if (this.isCastle(piece, toRow, toColumn)) {
-            this.castleMove(piece, toRow, toColumn);
-        }
-            
+        
         if(this.isPromotion(piece, toRow, toColumn)) {
             this.promotionPawn(piece, toRow, toColumn);
             piece = piecesClone[piece.getRow()][piece.getColumn()];
@@ -161,6 +162,7 @@ public class Board {
         piecesClone[piece.getRow()][piece.getColumn()] = null;   
         piecesClone[toRow][toColumn] = piece;    
         
+        this.pieces = piecesOriginal;
         return !this.isCheck(piecesClone, piece, toRow, toColumn);
     }
     
@@ -199,7 +201,7 @@ public class Board {
         
     //castle
     public boolean isCastle(Piece piece, int toRow, int toColumn) {
-        return (piece instanceof King && Math.abs(piece.getColumn()- toColumn) == 2);
+        return (piece instanceof King && Math.abs(piece.getColumn() - toColumn) == 2);
     }
     
     public void castleMove (Piece piece, int toRow, int toColumn) {
