@@ -15,24 +15,27 @@ public class Queen extends Piece{
     public Queen(EnumPlayer player, int row, int column) {
         super(player, row, column, (player == EnumPlayer.WHITE ? "src/figs/wQueen.png" : "src/figs/bQueen.png"), 10);
     }
-
+    public Queen(Piece piece) {
+        super(piece);
+    }
+    
     @Override
-    public boolean isValidMovement(int toRow, int toColumn) {
+    public boolean isValidMovement(int toRow, int toColumn, Board board) {
         
         //position out of the board
         if(!(toRow >= 0 && toRow < 8 && toColumn >= 0 && toColumn < 8)) {
             return false;
         }
-        return (new Bishop(this.getPlayer(), this.getRow(), this.getColumn(), this.getBoard())).isValidMovement(toRow, toColumn) || (new Rook(this.getPlayer(), this.getRow(), this.getColumn(), this.getBoard())).isValidMovement(toRow, toColumn);
+        return (new Bishop(this.getPlayer(), this.getRow(), this.getColumn())).isValidMovement(toRow, toColumn, board) || (new Rook(this.getPlayer(), this.getRow(), this.getColumn())).isValidMovement(toRow, toColumn, board);
     }
 
     @Override
-    public ArrayList<ArrayList<Integer>> possibleMoves() {
+    public ArrayList<ArrayList<Integer>> possibleMoves(Board board) {
        ArrayList<ArrayList<Integer>> movesB = new ArrayList<>();
        ArrayList<ArrayList<Integer>> movesR = new ArrayList<>();
        
-       movesB = (new Bishop(this.getPlayer(), this.getRow(), this.getColumn(), this.getBoard())).possibleMoves();
-       movesR = (new Rook(this.getPlayer(), this.getRow(), this.getColumn(), this.getBoard())).possibleMoves();
+       movesB = (new Bishop(this.getPlayer(), this.getRow(), this.getColumn())).possibleMoves(board);
+       movesR = (new Rook(this.getPlayer(), this.getRow(), this.getColumn())).possibleMoves(board);
        
        movesB.addAll(movesR);
        
@@ -40,8 +43,7 @@ public class Queen extends Piece{
     }
 
     @Override
-    public ArrayList<ArrayList<Integer>> possibleAttacks() {
-        return this.possibleMoves();
-    }    
-    
+    public ArrayList<ArrayList<Integer>> possibleAttacks(Board board) {
+        return this.possibleMoves(board);
+    }
 }

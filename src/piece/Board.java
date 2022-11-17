@@ -5,15 +5,13 @@ package piece;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import screen.JBoard;
 import screen.JCell;
-import screen.JChess;
 
 /**
  *
  * @author tiago
  */
-public class Board {
+public final class Board {
     
     // Atributtes
     private Piece[][] pieces;
@@ -66,13 +64,18 @@ public class Board {
         
     }
     
-    // Public methods
-    public void addPiece(Piece piece) {
+    public Board(Board board) {
+        this.pieces = this.piecesClone(board.getPieces());
+        this.selected = board.getSelected() == null? null : board.getSelected().clone();
+        this.player = board.getPlayer();
+        this.computerPlayer = board.getComputerPlayer();
+    }
+    
+    private void addPiece(Piece piece) {
         this.pieces[piece.getRow()][piece.getColumn()] = piece;
-        piece.setBoard(this);
     } 
     
-    public void selectPiece(Piece piece) {
+    private void selectPiece(Piece piece) {
         //Double click
         if (piece.isSelected()) {
             piece.setSelected(false);
@@ -109,9 +112,7 @@ public class Board {
     }
    
     public void movePiece(Piece piece, int toRow, int toColumn) {
-        
-        if (piece.isValidMovement(toRow, toColumn) && isValidMovementBoard(piece, toRow, toColumn)) {
-            
+        if (isValidMove(piece, toRow, toColumn)) {
             if(this.isCapture(piece, toRow, toColumn)) {
                 this.capturePiece(piece, toRow, toColumn);
             }
@@ -138,43 +139,42 @@ public class Board {
         }
     }
     
-    public boolean isValidMovementBoard(Piece piece, int toRow, int toColumn) {
-        
+    public boolean isValidMove(Piece piece, int toRow, int toColumn) {
+        return piece.isValidMovement(toRow, toColumn, new Board(this)) && new Board(this).isValidMovementBoard(piece, toRow, toColumn);
+    }
+    
+    private Piece[][] piecesClone(Piece[][] pieces) {
         Piece[][] piecesClone = new Piece[8][8];
         for (int i = 0; i < 8; i++) {
-            piecesClone[i] = this.pieces[i].clone();
+            piecesClone[i] = pieces[i].clone();
         }
+        return piecesClone;
+    }
+    
+    public boolean isValidMovementBoard(Piece piece, int toRow, int toColumn) {
         
-        Piece[][] piecesOriginal = new Piece[8][8];
-        for (int i = 0; i < 8; i++) {
-            piecesOriginal[i] = this.pieces[i].clone();
-        }
-            
         if(this.isCapture(piece, toRow, toColumn)) {
             this.capturePiece(piece, toRow, toColumn);
         }
         
         if(this.isPromotion(piece, toRow, toColumn)) {
             this.promotionPawn(piece, toRow, toColumn);
-            piece = piecesClone[piece.getRow()][piece.getColumn()];
+            piece = this.getPiece(piece.getRow(), piece.getColumn());
         }
-            
-        piecesClone[piece.getRow()][piece.getColumn()] = null;   
-        piecesClone[toRow][toColumn] = piece;    
+        this.pieces[piece.getRow()][piece.getColumn()] = null; 
+        this.pieces[toRow][toColumn] = piece;
         
-        this.pieces = piecesOriginal;
-        return !this.isCheck(piecesClone, piece, toRow, toColumn);
+        return !this.isCheck(piece, toRow, toColumn);
     }
     
     
     public boolean isCapture(Piece piece, int toRow, int toColumn) {
-        
-        if (piece.getBoard().getPiece(toRow, toColumn) != null && piece.getBoard().getPiece(toRow, toColumn).getPlayer() != this.getPlayer()) {
+        if (this.getPiece(toRow, toColumn) != null && this.getPiece(toRow, toColumn).getPlayer() != this.getPlayer()) {
             return true;
         }
         
         // en passant 
-        else if (piece instanceof Pawn && piece.getBoard().getPiece(toRow, toColumn) == null && (piece.getPlayer() == EnumPlayer.WHITE ? piece.getBoard().getPiece(toRow-1, toColumn) : piece.getBoard().getPiece(toRow+1, toColumn)) != null && (piece.getPlayer() == EnumPlayer.WHITE ? piece.getBoard().getPiece(toRow-1, toColumn) : piece.getBoard().getPiece(toRow+1, toColumn)).isEnPassant() && (piece.getPlayer() == EnumPlayer.WHITE ? piece.getRow() == 4 : piece.getRow() == 3) && (piece.getBoard().getnMoves() - (piece.getPlayer() == EnumPlayer.WHITE ? piece.getBoard().getPiece(toRow-1, toColumn) : piece.getBoard().getPiece(toRow+1, toColumn)).getLastMove()) == 1) {
+        else if (piece instanceof Pawn && this.getPiece(toRow, toColumn) == null && (piece.getPlayer() == EnumPlayer.WHITE ? this.getPiece(toRow-1, toColumn) : this.getPiece(toRow+1, toColumn)) != null && (piece.getPlayer() == EnumPlayer.WHITE ? this.getPiece(toRow-1, toColumn) : this.getPiece(toRow+1, toColumn)).isEnPassant() && (piece.getPlayer() == EnumPlayer.WHITE ? piece.getRow() == 4 : piece.getRow() == 3) && (this.getnMoves() - (piece.getPlayer() == EnumPlayer.WHITE ? this.getPiece(toRow-1, toColumn) : this.getPiece(toRow+1, toColumn)).getLastMove()) == 1) {
             return true;
         }
         
@@ -186,13 +186,12 @@ public class Board {
     
     public void capturePiece(Piece piece, int toRow, int toColumn) {
         
-        if (piece.getBoard().getPiece(toRow, toColumn) != null) {
-            piece.getBoard().getPiece(toRow, toColumn).setActive(false);
-            
+        if (this.getPiece(toRow, toColumn) != null) {
+            this.getPiece(toRow, toColumn).setActive(false);
         }
         
         // en passant 
-        else if (piece.getBoard().getPiece(toRow, toColumn) == null && (piece.getPlayer() == EnumPlayer.WHITE ? piece.getBoard().getPiece(toRow-1, toColumn) : piece.getBoard().getPiece(toRow+1, toColumn)) != null && (piece.getPlayer() == EnumPlayer.WHITE ? piece.getBoard().getPiece(toRow-1, toColumn) : piece.getBoard().getPiece(toRow+1, toColumn)).isEnPassant() && (piece.getPlayer() == EnumPlayer.WHITE ? piece.getRow() == 4 : piece.getRow() == 3) && (piece.getBoard().getnMoves() - (piece.getPlayer() == EnumPlayer.WHITE ? piece.getBoard().getPiece(toRow-1, toColumn) : piece.getBoard().getPiece(toRow+1, toColumn)).getLastMove()) == 1) {
+        else if (this.getPiece(toRow, toColumn) == null && (piece.getPlayer() == EnumPlayer.WHITE ? this.getPiece(toRow-1, toColumn) : this.getPiece(toRow+1, toColumn)) != null && (piece.getPlayer() == EnumPlayer.WHITE ? this.getPiece(toRow-1, toColumn) : this.getPiece(toRow+1, toColumn)).isEnPassant() && (piece.getPlayer() == EnumPlayer.WHITE ? piece.getRow() == 4 : piece.getRow() == 3) && (this.getnMoves() - (piece.getPlayer() == EnumPlayer.WHITE ? this.getPiece(toRow-1, toColumn) : this.getPiece(toRow+1, toColumn)).getLastMove()) == 1) {
             this.getPiece(piece.getPlayer() == EnumPlayer.WHITE ? toRow - 1 : toRow + 1, toColumn).setActive(false);
             this.pieces[piece.getPlayer() == EnumPlayer.WHITE ? toRow - 1 : toRow + 1][toColumn] = null;
         }
@@ -206,14 +205,13 @@ public class Board {
     
     public void castleMove (Piece piece, int toRow, int toColumn) {
         if (toColumn > piece.getColumn()) {
-            Piece rook = piece.getBoard().getPiece(piece.getRow(), 7);
+            Piece rook = this.getPiece(piece.getRow(), 7);
             rook.setColumn(toColumn - 1);
             this.setPiece(rook);
             this.pieces[piece.getRow()][7] = null;
-            
         }
         else {
-            Piece rook = piece.getBoard().getPiece(piece.getRow(), 0);
+            Piece rook = this.getPiece(piece.getRow(), 0);
             rook.setColumn(toColumn + 1);
             this.setPiece(rook);
             this.pieces[piece.getRow()][0] = null;            
@@ -247,14 +245,17 @@ public class Board {
                 case 3:
                     this.pieces[piece.getRow()][piece.getColumn()] =  new Queen(piece.getPlayer(), piece.getRow(), piece.getColumn()); 
                     break;
-                    
             }
         }
     }
     
     public void invertPlayer() {
-        if (this.player.equals(EnumPlayer.WHITE)) this.player = EnumPlayer.BLACK;
-        else this.player = EnumPlayer.WHITE;
+        if (this.player.equals(EnumPlayer.WHITE)) {
+            this.player = EnumPlayer.BLACK;  
+        }
+        else {
+            this.player = EnumPlayer.WHITE;
+        }
     }
     
     public boolean isCheck(Piece piece, int toRow, int toColumn) {
@@ -264,7 +265,7 @@ public class Board {
         for(int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (this.getPiece(i, j) != null && this.getPiece(i, j).getPlayer() != this.getPlayer()) {
-                    moves.addAll(this.getPiece(i, j).possibleAttacks());
+                    moves.addAll(this.getPiece(i, j).possibleAttacks(this));
                 }
                 else if(this.getPiece(i, j) != null && this.getPiece(i, j) instanceof King && this.getPiece(i, j).getPlayer() == this.getPlayer()) {
                     pKing.add(i);
@@ -274,44 +275,18 @@ public class Board {
         }
         return moves.contains(pKing);
     }
-    
-    public boolean isCheck(Piece[][] piecesClone, Piece piece, int toRow, int toColumn) {
-        ArrayList<ArrayList<Integer>> moves = new ArrayList<>();
-        ArrayList<Integer> pKing = new ArrayList();
-        
-        Piece[][] piecesOriginal = new Piece[8][8];
-        for (int i = 0; i < 8; i++) {
-            piecesOriginal[i] = this.pieces[i].clone();
-        }
-        
-        for(int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if (piecesClone[i][j] != null && piecesClone[i][j].getPlayer() != this.getPlayer()) {
-                    piecesClone[i][j].setPieces(piecesClone);
-                    moves.addAll(piecesClone[i][j].possibleAttacks());
-                    piecesClone[i][j].setPieces(piecesOriginal);
-                }
-                else if(piecesClone[i][j] != null && piecesClone[i][j] instanceof King && piecesClone[i][j].getPlayer() == this.getPlayer()) {
-                    pKing.add(i);
-                    pKing.add(j);
-                }
-            }
-        }
-        return moves.contains(pKing);
-    }
-    
+  
     //Getters and setters
     public Piece getPiece(int row, int column) {
         return pieces[row][column];
     }
-    
-    public void setPiece(Piece piece) {
-        this.pieces[piece.getRow()][piece.getColumn()] = piece;
-        piece.setBoard(this);
-    }
 
     public void setPieces(Piece[][] pieces) {
         this.pieces = pieces;
+    }
+    
+    public void setPiece(Piece piece) {
+        this.pieces[piece.getRow()][piece.getColumn()] = piece;
     }
 
     public Piece getSelected() {

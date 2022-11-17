@@ -17,7 +17,6 @@ public abstract class Piece {
     private final int valuePiece;
     private boolean active, selected, enPassant, firstMove;
     private final String figure;
-    private Board board;
     
     
     //Constructor 
@@ -36,23 +35,23 @@ public abstract class Piece {
     }
     
     public Piece(Piece piece) {
+        
         this.player = piece.getPlayer();
         this.row = piece.getRow();
-        this.column = piece.column;
+        this.column = piece.getColumn();
         this.figure = piece.getFigure();
-        this.active = true;
-        this.selected = false;
-        this.enPassant = false;
-        this.lastMove = 0;
+        this.active = piece.isActive();
+        this.selected = piece.isSelected();
+        this.enPassant = piece.isEnPassant();
+        this.lastMove = piece.getLastMove();
         this.valuePiece = piece.getValuePiece();
-        this.firstMove = true;
+        this.firstMove = piece.isFirstMove();
     }
-
-    //Public methods
-    public abstract boolean isValidMovement(int toRow, int toColumn);
     
-    public abstract ArrayList<ArrayList<Integer>> possibleMoves(); 
-    public abstract ArrayList<ArrayList<Integer>> possibleAttacks();
+    //Public methods
+    public abstract boolean isValidMovement(int toRow, int toColumn, Board board);
+    public abstract ArrayList<ArrayList<Integer>> possibleMoves(Board board); 
+    public abstract ArrayList<ArrayList<Integer>> possibleAttacks(Board board);
     
     //getters e setters 
     public EnumPlayer getPlayer() {
@@ -75,7 +74,7 @@ public abstract class Piece {
         this.column = column;
     }
 
-    public boolean isActive() {
+    protected boolean isActive() {
         return active;
     }
 
@@ -91,19 +90,7 @@ public abstract class Piece {
         this.selected = selected;
     }
 
-    public String getFigure() {
-        return figure;
-    }
-
-    public Board getBoard() {
-        return board;
-    }
-
-    public void setBoard(Board board) {
-        this.board = board;
-    }
-
-    public boolean isEnPassant() {
+    protected boolean isEnPassant() {
         return enPassant;
     }
 
@@ -111,7 +98,7 @@ public abstract class Piece {
         this.enPassant = enPassant;
     }
 
-    public int getLastMove() {
+    protected int getLastMove() {
         return lastMove;
     }
 
@@ -119,20 +106,43 @@ public abstract class Piece {
         this.lastMove = lastMove;
     }
 
-    public int getValuePiece() {
+    protected int getValuePiece() {
         return valuePiece;
     }
 
-    public boolean isFirstMove() {
+    protected boolean isFirstMove() {
         return firstMove;
     }
 
     public void setFirstMove(boolean isFirstMove) {
         this.firstMove = isFirstMove;
     }
-    
-    public void setPieces(Piece [][] pieces) {
-        this.board.setPieces(pieces);
+
+    public String getFigure() {
+        return figure;
     }
     
+    public Piece clone(Piece this) {
+        if (this instanceof Bishop) {
+            return new Bishop(this);
+        }
+        else if (this instanceof Knight) {
+            return new Knight(this);
+        }
+        else if (this instanceof Pawn) {
+            return new Pawn(this);
+        }
+        else if (this instanceof Rook) {
+            return new Rook(this);
+        }
+        else if (this instanceof Queen) {
+            return new Queen(this);
+        }
+        else if (this instanceof King) {
+            return new King(this);
+        }
+        else {
+            return null;
+        }
+    }
 }
