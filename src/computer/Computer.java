@@ -76,13 +76,6 @@ public class Computer {
                                 }
                             }
                         }
-                        for (int k : bestMoveData) {
-                            /*
-                            System.out.print(k);
-                            System.out.print(" ; ");
-                            */
-                        }
-                        //System.out.println(boardClone.getPlayer());
                     }
                 }
             }
@@ -97,7 +90,6 @@ public class Computer {
         
         for(int[] move : listMoves) {
             evaluation = this.evaluationFunction(this.movePieceClone(board, board.getPiece(move[1], move[2]), move[3], move[4]));
-            System.out.println(evaluation);
             if (evaluation > score) {
                 score = evaluation;
                 bestMoveData[0] = score;
@@ -136,34 +128,12 @@ public class Computer {
                                 resultList.add(result);
                             }
                         }
-                        
-                        /*
-                        for (int k : result) {
-                            System.out.print(k);
-                            System.out.print("  ");
-                        }
-                        System.out.println();
-                        */
                     }
                 }
             }
         }
-                for (int[] z : resultList) {
-            System.out.print(z[0]);
-            System.out.print(" ");
-            System.out.print(z[1]);
-            System.out.print(" ");
-            System.out.print(z[2]);
-            System.out.print(" ");
-            System.out.print(z[3]);
-            System.out.print(" ");
-            System.out.print(z[4]);
-            System.out.println(" ");
-        }
         
         resultList = findMin(resultList);
-
-        
         
         return this.findBestMove(resultList, board);
     }
