@@ -106,7 +106,7 @@ public abstract class Piece {
         this.lastMove = lastMove;
     }
 
-    protected int getValuePiece() {
+    public int getValuePiece() {
         return valuePiece;
     }
 
@@ -145,4 +145,6 @@ public abstract class Piece {
             return null;
         }
     }
+    
+    
 }

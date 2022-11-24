@@ -5,7 +5,9 @@ package piece;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import screen.JBoard;
 import screen.JCell;
+import screen.JChess;
 
 /**
  *
@@ -16,7 +18,7 @@ public final class Board {
     // Atributtes
     private Piece[][] pieces;
     private Piece selected;
-    private EnumPlayer player;
+    private volatile EnumPlayer player;
     private final EnumPlayer computerPlayer;
     private int nMoves;
     
@@ -86,13 +88,14 @@ public final class Board {
             this.selected.setSelected(false);
             piece.setSelected(true);
             this.selected = piece;
+            JChess.print = true;
         }
         //Select the clicked piece
         else {
             piece.setSelected(true);
-            this.selected = piece;            
+            this.selected = piece;  
+            JChess.print = true;
         }
-        
     }
     
     public void play(JCell jCell) {
@@ -134,8 +137,11 @@ public final class Board {
             piece.setLastMove(this.nMoves);
             piece.setFirstMove(false);
             this.selectPiece(piece);
+            piece.setSelected(false);
             this.invertPlayer();
             this.nMoves ++;
+            
+            JChess.print = true;
         }
     }
     

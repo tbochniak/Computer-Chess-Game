@@ -16,7 +16,7 @@ import piece.Piece;
  *
  * @author tiago
  */
-public class JBoard extends JPanel implements MouseListener{
+public final class JBoard extends JPanel implements MouseListener{
     
     private Board board;
         
@@ -98,7 +98,7 @@ public class JBoard extends JPanel implements MouseListener{
     public void mouseClicked(MouseEvent me) {
         JCell jCell = (JCell) me.getSource();
         this.board.play(jCell);
-        this.drawBoard();
+        //this.drawBoard();
     }
 
     @Override

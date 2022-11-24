@@ -68,7 +68,6 @@ public class King extends Piece{
                 }
             }
         }
-        System.out.println(moves);
         return moves;
     }
 

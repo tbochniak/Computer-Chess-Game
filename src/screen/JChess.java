@@ -18,6 +18,7 @@ public class JChess extends JFrame{
     
     private static Board board;
     private static JBoard jBoard;
+    public static boolean print;
     
     public JChess (EnumPlayer computerPlayer) {
         setTitle("Jogo de Xadrez");
@@ -39,7 +40,11 @@ public class JChess extends JFrame{
         JChess jChessGame = new JChess(computer.getPlayer());
         
         while (true) {
-            computer.playComputer(board);
+            computer.playComputer(JChess.board);
+            if (print) {
+                jBoard.drawBoard();
+                print = false;
+            }
         }
         
         
