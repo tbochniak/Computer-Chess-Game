@@ -119,6 +119,8 @@ public class Computer {
                             column = pos.get(1);
                             if (new Board(board).isValidMovementBoard(piece, row, column)) {
                                 findBestMove = findBestMove(movePieceClone(boardClone, piece, row, column))[0];
+                                //System.out.print("Print da medida ");
+                                //System.out.println(findBestMove);
                                 int[] result = new int[5];
                                 result[0] = findBestMove;
                                 result[1] = i;
@@ -137,73 +139,7 @@ public class Computer {
         
         return this.findBestMove(resultList, board);
     }
-    
-    
-    
-    private int[] minimaxOld (Board board) {
-        int[] result = new int[5];
-        ArrayList<ArrayList<Integer>> listResult = new ArrayList<>();
-        Board boardClone = this.boardClone(board);
-        int score = -1000, row, column;
-        
-        int scoreMin = 1000;
-        int[] resultFinal = new int[5];
-        
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if (boardClone.getPiece(i, j) != null && boardClone.getPiece(i, j).getPlayer() == boardClone.getPlayer()) {
-                    Piece piece = board.getPiece(i, j);
-                    ArrayList<ArrayList<Integer>> possibleMoves = piece.possibleMoves(board);
-                    if (!possibleMoves.isEmpty()) {
-                        for (ArrayList<Integer> pos : possibleMoves) {
-                            row = pos.get(0);
-                            column = pos.get(1);
-                            if (new Board(board).isValidMovementBoard(piece, row, column)) {
-                                if(this.findBestMove(this.movePieceClone(boardClone, piece, row, column))[0] > score) {
-                                    score = this.findBestMove(this.movePieceClone(boardClone, piece, row, column))[0];
-                                    result[0] = score;
-                                    result[1] = i;
-                                    result[2] = j;
-                                    result[3] = row;
-                                    result[4] = column;
-                                }
-                            }
-                        }
-                    
-                    if(score < scoreMin) {
-                        scoreMin = score;
-                        resultFinal[0] = result[0];
-                        resultFinal[1] = result[1];
-                        resultFinal[2] = result[2];
-                        resultFinal[3] = result[3];
-                        resultFinal[4] = result[4];
-                    }
-                    }
-                    score = -1000;
-                    scoreMin = 1000;
-                }
-            }
-        }
-        
-        return resultFinal;
-    }
-    
-    /*
-    private void minimax(Board board) {
-        int ind = 0;
-        ArrayList<Integer> possibleScores = new ArrayList();
-        ArrayList<Board> listPossibleBoards = this.searchTree(board);
-        
-        
-        for(Board possibleBoard : listPossibleBoards) {
-            possibleScores.add(scoreBestMove(possibleBoard));
-        }
-        
-        ind = findMinInd(possibleScores);
-        
-        board = listPossibleBoards.get(ind);
-    }
-    */
+
     private ArrayList<int[]> findMin(ArrayList<int[]> list) {
         int min = 500;
         ArrayList<int[]> listMin = new ArrayList<>();

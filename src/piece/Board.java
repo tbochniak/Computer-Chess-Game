@@ -5,7 +5,6 @@ package piece;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import screen.JBoard;
 import screen.JCell;
 import screen.JChess;
 
@@ -71,6 +70,7 @@ public final class Board {
         this.selected = board.getSelected() == null? null : board.getSelected().clone();
         this.player = board.getPlayer();
         this.computerPlayer = board.getComputerPlayer();
+        this.nMoves = board.getnMoves();
     }
     
     private void addPiece(Piece piece) {
@@ -140,7 +140,6 @@ public final class Board {
             piece.setSelected(false);
             this.invertPlayer();
             this.nMoves ++;
-            
             JChess.print = true;
         }
     }
@@ -175,6 +174,12 @@ public final class Board {
     
     
     public boolean isCapture(Piece piece, int toRow, int toColumn) {
+        /*
+        System.out.print("entrou no iscapture");
+        System.out.print(toRow);
+        System.out.print(toColumn);
+        System.out.println();
+*/
         if (this.getPiece(toRow, toColumn) != null && this.getPiece(toRow, toColumn).getPlayer() != this.getPlayer()) {
             return true;
         }
@@ -229,30 +234,8 @@ public final class Board {
     }
     
     public void promotionPawn (Piece piece, int toRow, int toColumn) {
-        if (piece.getPlayer() == this.computerPlayer) {
-            piece.setActive(false);
-            this.setPiece(new Queen(this.getComputerPlayer(), piece.getRow(), piece.getColumn()));
-        }
-        else {
-            piece.setActive(false);
-            Object[] opcoes = {"Cavalo", "Bispo", "Torre", "Rainha"};
-            int option = JOptionPane.showOptionDialog( null , "Escolha a sua peça" , "Jogo de Xadrez" , JOptionPane.YES_NO_CANCEL_OPTION , JOptionPane.QUESTION_MESSAGE ,null , opcoes , null);
-            
-            switch (option) {
-                case 0:
-                    this.pieces[piece.getRow()][piece.getColumn()] =  new Knight(piece.getPlayer(), piece.getRow(), piece.getColumn()); 
-                    break;
-                case 1:
-                    this.pieces[piece.getRow()][piece.getColumn()] =  new Bishop(piece.getPlayer(), piece.getRow(), piece.getColumn()); 
-                    break;
-                case 2:
-                    this.pieces[piece.getRow()][piece.getColumn()] =  new Rook(piece.getPlayer(), piece.getRow(), piece.getColumn()); 
-                    break;
-                case 3:
-                    this.pieces[piece.getRow()][piece.getColumn()] =  new Queen(piece.getPlayer(), piece.getRow(), piece.getColumn()); 
-                    break;
-            }
-        }
+        piece.setActive(false);
+        this.setPiece(new Queen(this.getComputerPlayer(), piece.getRow(), piece.getColumn()));
     }
     
     public void invertPlayer() {
