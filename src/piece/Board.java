@@ -4,7 +4,6 @@
 package piece;
 
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 import screen.JCell;
 import screen.JChess;
 
@@ -88,13 +87,11 @@ public final class Board {
             this.selected.setSelected(false);
             piece.setSelected(true);
             this.selected = piece;
-            JChess.print = true;
         }
         //Select the clicked piece
         else {
             piece.setSelected(true);
-            this.selected = piece;  
-            JChess.print = true;
+            this.selected = piece;
         }
     }
     
@@ -140,7 +137,6 @@ public final class Board {
             piece.setSelected(false);
             this.invertPlayer();
             this.nMoves ++;
-            JChess.print = true;
         }
     }
     
@@ -174,12 +170,7 @@ public final class Board {
     
     
     public boolean isCapture(Piece piece, int toRow, int toColumn) {
-        /*
-        System.out.print("entrou no iscapture");
-        System.out.print(toRow);
-        System.out.print(toColumn);
-        System.out.println();
-*/
+        
         if (this.getPiece(toRow, toColumn) != null && this.getPiece(toRow, toColumn).getPlayer() != this.getPlayer()) {
             return true;
         }
@@ -235,7 +226,7 @@ public final class Board {
     
     public void promotionPawn (Piece piece, int toRow, int toColumn) {
         piece.setActive(false);
-        this.setPiece(new Queen(this.getComputerPlayer(), piece.getRow(), piece.getColumn()));
+        this.setPiece(new Queen(this.getPlayer(), piece.getRow(), piece.getColumn()));
     }
     
     public void invertPlayer() {

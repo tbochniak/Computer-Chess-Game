@@ -46,8 +46,6 @@ public class JChess extends JFrame{
                 print = false;
             }
         }
-        
-        
 
     }
 
