@@ -3,20 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/tiago/OneDrive/Desktop/ChessGame/ChessGame/src/screen/JPiece.java</file>
-            <file>file:/C:/Users/tiago/OneDrive/Desktop/ChessGame/ChessGame/src/piece/Queen.java</file>
-            <file>file:/C:/Users/tiago/OneDrive/Desktop/ChessGame/ChessGame/src/piece/Piece.java</file>
-            <file>file:/C:/Users/tiago/OneDrive/Desktop/ChessGame/ChessGame/src/piece/Knight.java</file>
-            <file>file:/C:/Users/tiago/OneDrive/Desktop/ChessGame/ChessGame/src/computer/Computer.java</file>
             <file>file:/C:/Users/tiago/OneDrive/Desktop/ChessGame/ChessGame/src/piece/Board.java</file>
+            <file>file:/C:/Users/tiago/OneDrive/Desktop/ChessGame/ChessGame/src/screen/JPiece.java</file>
             <file>file:/C:/Users/tiago/OneDrive/Desktop/ChessGame/ChessGame/src/screen/JCell.java</file>
-            <file>file:/C:/Users/tiago/OneDrive/Desktop/ChessGame/ChessGame/src/piece/Pawn.java</file>
-            <file>file:/C:/Users/tiago/OneDrive/Desktop/ChessGame/ChessGame/src/piece/Bishop.java</file>
             <file>file:/C:/Users/tiago/OneDrive/Desktop/ChessGame/ChessGame/src/screen/JBoard.java</file>
-            <file>file:/C:/Users/tiago/OneDrive/Desktop/ChessGame/ChessGame/src/piece/EnumPlayer.java</file>
-            <file>file:/C:/Users/tiago/OneDrive/Desktop/ChessGame/ChessGame/src/piece/BestMove.java</file>
             <file>file:/C:/Users/tiago/OneDrive/Desktop/ChessGame/ChessGame/src/screen/JChess.java</file>
-            <file>file:/C:/Users/tiago/OneDrive/Desktop/ChessGame/ChessGame/src/piece/King.java</file>
+            <file>file:/C:/Users/tiago/OneDrive/Desktop/ChessGame/ChessGame/src/computer/Computer.java</file>
             <file>file:/C:/Users/tiago/OneDrive/Desktop/ChessGame/ChessGame/src/piece/Rook.java</file>
         </group>
     </open-files>
