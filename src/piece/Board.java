@@ -168,7 +168,7 @@ public final class Board {
         this.pieces[piece.getRow()][piece.getColumn()] = null; 
         this.pieces[toRow][toColumn] = piece;
         
-        return !this.isCheck(piece, toRow, toColumn);
+        return !this.isCheck();
     }
     
     
@@ -239,24 +239,6 @@ public final class Board {
         else {
             this.player = EnumPlayer.WHITE;
         }
-    }
-    
-    public boolean isCheck(Piece piece, int toRow, int toColumn) {
-        ArrayList<ArrayList<Integer>> moves = new ArrayList<>();
-        ArrayList<Integer> pKing = new ArrayList();
-        
-        for(int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if (this.getPiece(i, j) != null && this.getPiece(i, j).getPlayer() != this.getPlayer()) {
-                    moves.addAll(this.getPiece(i, j).possibleAttacks(this));
-                }
-                else if(this.getPiece(i, j) != null && this.getPiece(i, j) instanceof King && this.getPiece(i, j).getPlayer() == this.getPlayer()) {
-                    pKing.add(i);
-                    pKing.add(j);
-                }
-            }
-        }
-        return moves.contains(pKing);
     }
  
     public boolean isCheck() {

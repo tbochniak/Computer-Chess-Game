@@ -1,5 +1,5 @@
 /*
- * 
+ * Chess Engine
  */
 package computer;
 
@@ -25,7 +25,7 @@ public class Computer {
     public void playComputer(Board board) {
         
         if (board.getPlayer() == this.computerPlayer) {
-            int depth = 3;
+            int depth = 4;
             int[] move = this.minimax(depth, depth, board);
             board.movePiece(board.getPiece(move[1], move[2]), move[3], move[4]);
             JChess.printBoard();
@@ -109,7 +109,6 @@ public class Computer {
             result[0] = evaluate;
             return result;
         }
-        
         
         if (depth % 2 == (depthCTE % 2 == 1? 1 : 0)) {
             return this.findMax(resultList);
