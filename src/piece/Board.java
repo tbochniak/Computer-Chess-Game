@@ -1,16 +1,16 @@
 /*
- * 
+ * This class controls 
  */
 package piece;
 
 import java.util.ArrayList;
 import screen.JCell;
-import screen.JChess;
 
 /**
  *
  * @author tiago
  */
+
 public final class Board {
     
     // Atributtes
@@ -44,11 +44,11 @@ public final class Board {
         listOfPieces[10] = new Bishop(EnumPlayer.BLACK, 7, 2);
         listOfPieces[11] = new Bishop(EnumPlayer.BLACK, 7, 5);
         
-        listOfPieces[12] = new Queen(EnumPlayer.WHITE, 0, 3);
-        listOfPieces[13] = new Queen(EnumPlayer.BLACK, 7, 3);
+        listOfPieces[12] = new Queen(EnumPlayer.WHITE, 0, 4);
+        listOfPieces[13] = new Queen(EnumPlayer.BLACK, 7, 4);
         
-        listOfPieces[14] = new King(EnumPlayer.WHITE, 0, 4);
-        listOfPieces[15] = new King(EnumPlayer.BLACK, 7, 4);
+        listOfPieces[14] = new King(EnumPlayer.WHITE, 0, 3);
+        listOfPieces[15] = new King(EnumPlayer.BLACK, 7, 3);
         
         for (int i = 16; i < 16+8; i++) {
             listOfPieces[i] = new Pawn(EnumPlayer.WHITE, 1, i-16);
@@ -77,21 +77,24 @@ public final class Board {
     } 
     
     private void selectPiece(Piece piece) {
-        //Double click
-        if (piece.isSelected()) {
-            piece.setSelected(false);
-            this.selected = null;
-        }
-        //Click on another piece of mine
-        else if (this.selected != null) {
-            this.selected.setSelected(false);
-            piece.setSelected(true);
-            this.selected = piece;
-        }
-        //Select the clicked piece
-        else {
-            piece.setSelected(true);
-            this.selected = piece;
+        
+        if (piece.getPlayer() != this.computerPlayer) {
+            //Double click
+            if (piece.isSelected()) {
+                piece.setSelected(false);
+                this.selected = null;
+            }
+            //Click on another piece of mine
+            else if (this.selected != null) {
+                this.selected.setSelected(false);
+                piece.setSelected(true);
+                this.selected = piece;
+            }
+            //Select the clicked piece
+            else {
+                piece.setSelected(true);
+                this.selected = piece;
+            }
         }
     }
     
@@ -255,7 +258,25 @@ public final class Board {
         }
         return moves.contains(pKing);
     }
-  
+ 
+    public boolean isCheck() {
+        ArrayList<ArrayList<Integer>> moves = new ArrayList<>();
+        ArrayList<Integer> pKing = new ArrayList();
+        
+        for(int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (this.getPiece(i, j) != null && this.getPiece(i, j).getPlayer() != this.getPlayer()) {
+                    moves.addAll(this.getPiece(i, j).possibleAttacks(this));
+                }
+                else if(this.getPiece(i, j) != null && this.getPiece(i, j) instanceof King && this.getPiece(i, j).getPlayer() == this.getPlayer()) {
+                    pKing.add(i);
+                    pKing.add(j);
+                }
+            }
+        }
+        return moves.contains(pKing);
+    }    
+    
     //Getters and setters
     public Piece getPiece(int row, int column) {
         return pieces[row][column];

@@ -37,16 +37,15 @@ public class JChess extends JFrame{
         Object[] opcoes = {"Brancas", "Pretas"};
         int option = JOptionPane.showOptionDialog( null , "Escolha a cor das peças" , "Jogo de Xadrez" , JOptionPane.YES_NO_CANCEL_OPTION , JOptionPane.QUESTION_MESSAGE ,null , opcoes , null);
         Computer computer = new Computer(option == 1 ? EnumPlayer.WHITE : EnumPlayer.BLACK);
-        JChess jChessGame = new JChess(computer.getPlayer());
+        JChess jChessGame = new JChess(computer.getComputerPlayer());
         
         while (true) {
             computer.playComputer(JChess.board);
-            if (print) {
-                jBoard.drawBoard();
-                print = false;
-            }
         }
-
+    }
+    
+    public static void printBoard() {
+        jBoard.drawBoard();
     }
 
     
