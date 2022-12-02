@@ -25,7 +25,7 @@ public class Computer {
     public void playComputer(Board board) {
         
         if (board.getPlayer() == this.computerPlayer) {
-            int depth = 4;
+            int depth = 3;
             int[] move = this.minimax(depth, depth, board);
             board.movePiece(board.getPiece(move[1], move[2]), move[3], move[4]);
             JChess.printBoard();

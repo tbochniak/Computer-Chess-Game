@@ -44,10 +44,10 @@ public final class JBoard extends JPanel implements MouseListener{
                         jCell = new JCell(new JPiece(piece));
                     }
                     if ((i+j)%2 == 0) {
-                        jCell.setBackground(new Color(235,235, 208));
+                        jCell.setBackground(new Color(253,245,230));
                     }
                     else {
-                        jCell.setBackground(new Color(119, 148, 85));
+                        jCell.setBackground(new Color(210,180,140));
                     }
                     this.add(jCell);
                     //Criar outra classe depois
@@ -69,10 +69,10 @@ public final class JBoard extends JPanel implements MouseListener{
                         jCell = new JCell(new JPiece(piece));
                     }
                     if ((i+j)%2 == 0) {
-                        jCell.setBackground(new Color(235,235, 208));
+                        jCell.setBackground(new Color(253,245,230));
                     }
                     else {
-                        jCell.setBackground(new Color(119, 148, 85));
+                        jCell.setBackground(new Color(210,180,140));
                     }
                     this.add(jCell);
                     //Criar outra classe depois
