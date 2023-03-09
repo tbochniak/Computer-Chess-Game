@@ -8,3 +8,6 @@ In this project, the minimax search algorithm is implemented to predict the best
 
 Results:
 The implementation of the minimax algorithm in this project demonstrates its effectiveness in predicting the best possible move in a chess game. The algorithm can search the game tree up to 5 moves ahead before deciding which is the best move, providing a challenging and interesting game. 
+
+
+![Screenshot 2023-03-09 at 11-24-17 EA006 - Trabalho de Fim de Curso - Tiago Vitor Bochniak Leão](https://user-images.githubusercontent.com/46650657/224054259-23b36d23-869f-4268-bf05-79d2f1be8975.png)
